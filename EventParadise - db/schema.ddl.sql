@@ -1,0 +1,29 @@
+DROP TABLE IF EXISTS events;
+DROP TABLE IF EXISTS locations;
+DROP TABLE IF EXISTS topics;
+
+CREATE TABLE locations (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(100)UNIQUE NOT NULL
+);
+
+CREATE TABLE topics (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(100)UNIQUE NOT NULL
+);
+
+CREATE TABLE events (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	date TIMESTAMP NOT NULL,
+	price INTEGER NOT NULL,
+	location_id INTEGER,
+	CONSTRAINT fk_location_id
+		FOREIGN KEY (location_id)
+		REFERENCES locations(id),
+	topic_id INTEGER,
+	CONSTRAINT fk_topic_id
+		FOREIGN KEY (topic_id)
+		REFERENCES topics(id),
+	description VARCHAR (1000) NOT NULL
+)
